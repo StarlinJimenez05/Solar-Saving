@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    /* background: linear-gradient(8deg, rgb(28, 187, 123) 44%, rgba(199, 239, 223, 1) 100%); */
+}
+
+.header {
+    background-color: #37c38b;
+    display: flex;
+    justify-content: center;
+  }
+
+#logo {
+    border-radius: 15px;
+}
+  
+
