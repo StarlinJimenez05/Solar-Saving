@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { supabase } from "./lib/helper/supabaseClient.js";
+import AddressInput from "./components/AddressInput.js";
 
 function App() {
   const [user, setUser] = useState(null);
-
-  const login = async () => {
-    await supabase.auth.signInWithOAuth({ provider: "github" });
-  };
-
-  const logout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-  };
 
   useEffect(() => {
     // const session = supabase.auth.getSession();
@@ -30,11 +22,16 @@ function App() {
         }
       }
     );
-
-    // return () => {
-    //   authListener.unsubscribe;
-    // };
   }, []);
+
+  const login = async () => {
+    await supabase.auth.signInWithOAuth({ provider: "github" });
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
   console.log(import.meta.env.VITE_SUPABASE_URL);
 
@@ -46,12 +43,17 @@ function App() {
             <h1>User authenticated</h1>
 
             <button onClick={logout}>Log OUT</button>
+            <AddressInput />
           </div>
         ) : (
           <>
-            <h1>Dubswki</h1>
+            <div className="header">
+              <h1>SolarSavings</h1>
+            </div>
+
             <button onClick={login}>Login with github</button>
             <h2>ok</h2>
+            <AddressInput />
           </>
         )}
       </div>
