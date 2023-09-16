@@ -1,15 +1,38 @@
-import { useState } from "react";
-import React from "react";
 import "../App.css"
+import axios from "axios";
+import { useState } from "react";
 
 function AddressInput() {
+  const [address, setAddress] = useState({address: ""})
+
+  const handleChange = (e) => {
+    const addressValue = e.target.value
+    setAddress({address: addressValue})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const addressData = {address: address};
+    axios
+    .post("http://localhost:3001/address", addressData).then((result) => {
+      console.log(result.status, result.data);
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   return (
     <div>
       <h1>Save Your Planet and Your Wallet</h1>
-      <input type="text" placeholder="Insert Address" />
-      <button>Submit</button>
+      <form onSubmit={handleSubmit}>
+        <input onChange={handleChange}  type="text" name="address" placeholder="Insert Address" />
+        <button type="submit" >Submit</button>
+      </form>
     </div>
   );
 }
+
+
 
 export default AddressInput;
