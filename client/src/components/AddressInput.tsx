@@ -23,11 +23,11 @@ function AddressInput() {
     })
   }
   return (
-    <div>
+    <div className="input-container">
       <h1>Save Your Planet and Your Wallet</h1>
       <form onSubmit={handleSubmit}>
-        <input onChange={handleChange}  type="text" name="address" placeholder="Insert Address" />
-        <button type="submit" >Submit</button>
+        <input onChange={handleChange}  type="text" name="address" placeholder="Insert Address" className="address-input" />
+        <button type="submit" className="submit-btn" >Submit</button>
       </form>
     </div>
   );

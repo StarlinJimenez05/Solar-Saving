@@ -46,10 +46,25 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing to allow requests from 
 //         .catch((err) => res.json(err)); // Send an error response if there's a problem
 // });
 
+function replaceSpaces(inputString) {
+    var result = "";
+    
+    for (var i = 0; i < inputString.length; i++) {
+      if (inputString[i] === " ") {
+        result += "%20";
+      } else {
+        result += inputString[i];
+      }
+    }
+    
+    return result;
+  }
+
 app.post("/address", (req, res) => {
-    const addressData = req.body.address;
-    const body = req.body;
+    let addressData = req.body.address.address;
     console.log(`${req.body.address.address}`);
+    // console.log(`ReplaceAddress: ${replaceSpaces(addressData)}`)
+    console.log(`AddressReplace: ${addressData.replace(/ /g, "%20")}`);
 })
 
 // Start the web server and listen on port 3001
