@@ -3,6 +3,7 @@ const express = require("express"); // Import Express.js to create a web server
 // const mongoose = require("mongoose"); // Import Mongoose for MongoDB interaction
 const cors = require("cors"); // Import Cors for handling Cross-Origin Resource Sharing
 // const UserModel = require("./model/Users"); // Import the User model from the models/users.js file
+const https = require("https");
 
 // Create an instance of the Express.js application
 const app = express();
@@ -46,6 +47,8 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing to allow requests from 
 //         .catch((err) => res.json(err)); // Send an error response if there's a problem
 // });
 
+let address = " ";
+
 function replaceSpaces(inputString) {
     var result = "";
     
@@ -60,12 +63,26 @@ function replaceSpaces(inputString) {
     return result;
   }
 
+const latitude = 0;
+const longitude = 0;
+
+
 app.post("/address", (req, res) => {
     let addressData = req.body.address.address;
-    console.log(`${req.body.address.address}`);
-    // console.log(`ReplaceAddress: ${replaceSpaces(addressData)}`)
-    console.log(`AddressReplace: ${addressData.replace(/ /g, "%20")}`);
+    let formattedAddress = addressData.replace(/ /g, "%20");
+    console.log(`AddressReplace: ${formattedAddress}`);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=AIzaSyBSthcoFNRHBpQm38xhAX5kCY5_QI-AxPA`;
+    https.get(url, (res) => {
+      res.on("data",(data) => {
+        const var1 = JSON.parse(data);
+        latitude = var1.results[0].geometry.location.lat;
+
+      })
+
+    })
+
 })
+
 
 // Start the web server and listen on port 3001
 app.listen(3001, () => {
