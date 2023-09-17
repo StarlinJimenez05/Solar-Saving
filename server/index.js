@@ -48,9 +48,8 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing to allow requests from 
 
 app.post("/address", (req, res) => {
     const addressData = req.body.address;
-    const test = req.body.data;
     const body = req.body;
-    console.log(`${addressData}, ${test}, ${body}`);
+    console.log(`${req.body.address.address}`);
 })
 
 // Start the web server and listen on port 3001
